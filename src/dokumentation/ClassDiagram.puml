@@ -1,0 +1,60 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+object Data.txt {
+input to scanner
+}
+
+Main --> Tournament
+Tournament --> Games
+Tournament --> Teams
+Tournament --> TextUI
+Teams --> Games
+TextUI --> Data.txt
+TextUI --> Main
+
+
+Class Main {
+- boolean isRunning
+- int scanner
+}
+
+Class Tournament {
+- double startTime
+- double endTime
+- String date
++ ArrayList<Games>
++ getStartTime()
++ void setStartTime(double startTime)
++ getEndTime()
++ void setEndTime(double endTime)
++ getDate()
++ void setDate(String date)
++ addGametoTournament()
++ createTournament()
++ saveToFile()
++ showAllTeams()
+}
+
+Class Teams {
+- String teamName
+- int teamMembers
+- int numberOfGoals
+- int points
++ String getTeamName()
++ void setTeamName(String teamName)
++ int getMembers()
++ void setMembers(int teamMembers)
+}
+
+Class TextUI {
+- scanner console
+}
+
+Class Games {
+- String matchTitle
++ String getMatchTitle()
++ String setMatchTitle(String matchTitle)
+}
+
+@enduml
