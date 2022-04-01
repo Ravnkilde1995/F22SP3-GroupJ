@@ -9,7 +9,10 @@ public class Teams {
     private String teamName;
     private int teamMembers;
     private int numberOfGoals;
+    private int numberOfGoalsNegative;
     private int points;
+
+
 
     //Constructor
     //******************
@@ -48,11 +51,19 @@ public class Teams {
         return teamMembers;
     }
 
+    public int getNumberOfGoalsNegative() {
+        return numberOfGoalsNegative;
+    }
+
+    public void setNumberOfGoalsNegative(int numberOfGoalsNegative) {
+        this.numberOfGoalsNegative = numberOfGoalsNegative;
+    }
+
     public void setTeamMembers(int teamMembers){
         this.teamMembers=teamMembers;
 
-    }
 
+    }
 
     @Override
     public String toString() {

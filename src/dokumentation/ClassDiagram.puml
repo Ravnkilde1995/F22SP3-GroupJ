@@ -18,6 +18,9 @@ Class Main {
 + createTeams()
 + mainMenu()
 +addPointsToTeams()
++addGoalsToTeams()
++addNegativeGoals()
++teamMenu()
 
 }
 
