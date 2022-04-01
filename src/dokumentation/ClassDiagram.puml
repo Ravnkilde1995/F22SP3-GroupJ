@@ -12,8 +12,13 @@ DataIOTournament "has a"-->FileIOTournament
 
 
 Class Main {
-- boolean isRunning
-- int scanner
+- Scanner input
+- int answer
+-ArrayList<Teams>teams
++ createTeams()
++ mainMenu()
++addPointsToTeams()
+
 }
 
 Class Tournament {

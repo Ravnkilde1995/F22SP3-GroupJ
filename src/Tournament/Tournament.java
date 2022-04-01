@@ -22,11 +22,12 @@ public class Tournament {
     //Methods
     //******************
     public double getStartTime(){
+
         return startTime;
     }
 
     public void setStartTime(double startTime){
-
+        this.startTime=startTime;
     }
 
     public double getEndTime(){
@@ -34,7 +35,7 @@ public class Tournament {
     }
 
     public void setEndTime(double endTime){
-
+        this.endTime=endTime;
     }
 
     public String getDate(){
@@ -42,7 +43,7 @@ public class Tournament {
     }
 
     public void setDate(String date){
-
+        this.date=date;
     }
 
     public void addGameToTournament(){
@@ -50,10 +51,6 @@ public class Tournament {
     }
 
     public void createTournament(){
-
-    }
-
-    public void saveToFile(){
 
     }
 
