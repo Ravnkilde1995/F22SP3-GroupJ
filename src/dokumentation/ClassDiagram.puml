@@ -1,17 +1,14 @@
 @startuml
-'https://plantuml.com/class-diagram
 
-object Data.txt {
-input to scanner
-}
-
-Main --> Tournament
-Tournament --> Games
-Tournament --> Teams
-Tournament --> TextUI
-Teams --> Games
-TextUI --> Data.txt
-TextUI --> Main
+Main --> "has a "Tournament
+Tournament --> "has a "TextUI
+Match --> "has a " Teams
+Tournament --> "has a " Match
+TextUI "has a "--> Main
+Tournament --> "has a" DataIOTournament
+Teams "has a"-->  DataIOTeams
+DataIOTeams "has a" --> FileIOTeams
+DataIOTournament "has a"-->FileIOTournament
 
 
 Class Main {
@@ -32,8 +29,8 @@ Class Tournament {
 + void setDate(String date)
 + addGametoTournament()
 + createTournament()
-+ saveToFile()
 + showAllTeams()
+
 }
 
 Class Teams {
@@ -51,10 +48,52 @@ Class TextUI {
 - scanner console
 }
 
-Class Games {
+Class Match {
 - String matchTitle
+- matchStart
+- matchEnd
++ getMatchStart()
++ void setMatchStart(double matchStart)
++getMatchEnd()
++ void setMatchEnd(double matchEnd)
 + String getMatchTitle()
 + String setMatchTitle(String matchTitle)
 }
+interface DataIOTeams{
++ saveData()
++ loadData()
++ String getTeamName()
++ void setTeamName(String teamName)
+}
+abstract FileIOTeams{
+- int numberOfGoals
+- int points
++ saveData()
++ loadData()
++ totalNumbersOfGoals()
++totalPoints()
+}
+
+interface DataIOTournament{
++ saveData()
++ loadData()
++ showAllTeams()
++ getStartTime()
++ void setStartTime(double startTime)
++ getEndTime()
++ void setEndTime(double endTime)
++ getDate()
++ void setDate(String date)
+
+}
+abstract FileIOTournament{
+- int totalRankings
++saveData()
++ loadData()
++totalRankings()
++getTotalRankings()
++void setTotalRankings(int totalRankings)
+}
+
 
 @enduml
