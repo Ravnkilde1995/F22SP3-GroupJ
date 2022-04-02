@@ -1,9 +1,9 @@
 @startuml
 
-Main --> "has a "Tournament
-Tournament --> "has a "TextUI
-Match --> "has a " Teams
-Tournament --> "has a " Match
+Main --> "has a  "Tournament
+Tournament --> "has a      "TextUI
+Match --> "has a" Teams
+Tournament --> "has more " Match
 TextUI "has a "--> Main
 Tournament --> "has a" DataIOTournament
 Teams "has a"-->  DataIOTeams
@@ -16,11 +16,13 @@ Class Main {
 - int answer
 -ArrayList<Teams>teams
 + createTeams()
-+ mainMenu()
 +addPointsToTeams()
 +addGoalsToTeams()
-+addNegativeGoals()
++showAllTeams()
++showPlacement()
++ mainMenu()
 +teamMenu()
++tournamentMenu()
 
 }
 

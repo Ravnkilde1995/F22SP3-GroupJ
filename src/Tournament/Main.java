@@ -21,9 +21,9 @@ public class Main {
         while(answer != 0){
             System.out.println("Press 1 to create a team");
             System.out.println("Press 2 to assign points to team");
-            System.out.println("Press 3 to assign goals to team");
-            System.out.println("Press 4 to add negative goals from team");
-            System.out.println("Press 0 to terminate the program");
+            System.out.println("Press 3 to assign goals and negative goals to team");
+            System.out.println("Press 4 to show all teams assinged to tournament");
+            System.out.println("Press 0 to return to main menu");
 
             answer=input.nextInt();
 
@@ -38,10 +38,10 @@ public class Main {
                     addGoalsToTeam(input, teams);
                     break;
                 case 4:
-                    addNegativeGoals(input, teams);
+                    showAllTeams(teams);
                     break;
                 case 0:
-                    System.out.println("Closing...");
+                    System.out.println("returning to main menu...");
                     break;
             }
         }
@@ -64,13 +64,46 @@ public class Main {
                     teamMenu(input, teams);
                     break;
                 case 2:
-                    System.out.println("Coming soon");
+                    tournamentMenu(input,teams);
                     break;
                 case 3:
-                    System.out.println("also Coming soon");
+                    System.out.println("Coming soon");
                     break;
                 case 0:
                     System.out.println("Closing...");
+                    break;
+            }
+        }
+    }
+
+    public static void tournamentMenu(Scanner input, ArrayList<Teams>teams){
+
+        int answer=1;
+
+        while(answer != 0){
+            System.out.println("Press 1 to ");
+            System.out.println("Press 2 to ");
+            System.out.println("Press 3 to show the placement of teams");
+            System.out.println("Press 4 to ");
+            System.out.println("Press 0 to return to main menu");
+
+            answer=input.nextInt();
+
+            switch(answer){
+                case 1:
+                    System.out.println("coming soon");
+                    break;
+                case 2:
+                    System.out.println("coming soon2");
+                    break;
+                case 3:
+                    showPlacement(teams);
+                    break;
+                case 4:
+                    System.out.println("coming soon4");
+                    break;
+                case 0:
+                    System.out.println("returning to main menu...");
                     break;
             }
         }
@@ -106,9 +139,10 @@ public class Main {
         String team = input.next();
         System.out.println("Assign the total value of goals: ");
         int goals = input.nextInt();
+        System.out.println("Assign the total value of negative goals: ");
+        int negativeGoals = input.nextInt();
         for(int i=0; i< teams.size();i++){
             if(teams.get(i).getTeamName().equalsIgnoreCase(team)){
-                int negativeGoals=teams.get(i).getNumberOfGoalsNegative();
                 goals=goals-negativeGoals;
                 teams.get(i).setNumberOfGoals(goals);
                 System.out.println("Added goals to: "+teams.get(i));
@@ -117,17 +151,26 @@ public class Main {
         }
     }
 
-    public static void addNegativeGoals(Scanner input, ArrayList<Teams>teams){
-        System.out.println("Input the name of the team you want to extract goals from: ");
-        String team = input.next();
-        System.out.println("extract the total value of goals: ");
-        int goals = input.nextInt();
-        for(int i=0; i< teams.size();i++){
-            if(teams.get(i).getTeamName().equalsIgnoreCase(team)){
-                teams.get(i).setNumberOfGoalsNegative(goals);
-                System.out.println("extracted goals from: "+teams.get(i));
-            }
+    public static void showAllTeams(ArrayList<Teams>teams){
+        for(int i=0;i< teams.size();i++){
+            System.out.println(teams.get(i));
 
         }
     }
+
+    public static void showPlacement(ArrayList<Teams>teams){
+        for(int i=0;i< teams.size();i++){
+            for(int j =1; j< teams.size();j++){
+                if(teams.get(i).getPoints()>teams.get(j).getPoints()
+                        &&teams.get(i).getNumberOfGoals()>teams.get(j).getNumberOfGoals()){
+                    System.out.println(teams.get(i));
+                 }
+                if(teams.get(j).getPoints()>teams.get(i).getPoints()
+                        &&teams.get(i).getNumberOfGoals()>teams.get(j).getNumberOfGoals()){
+                    System.out.println(teams.get(j));
+                }
+            }
+        }
+    }
+
 }
