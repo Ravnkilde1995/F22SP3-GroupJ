@@ -11,7 +11,7 @@ public class Main {
 
         mainMenu(input, teams);
 
-        Tournament.addGameToTournament()
+        Tournament.addGameToTournament();
 
     }
 
