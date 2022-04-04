@@ -11,7 +11,10 @@ public class Main {
 
         mainMenu(input, teams);
 
-        Tournament.addGameToTournament();
+       // Tournament.addGameToTournament();
+
+        FileIOTeams.saveGameData(teams);
+        FileIOTeams.loadGameData(teams);
 
     }
 

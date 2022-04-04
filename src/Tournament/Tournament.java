@@ -46,9 +46,10 @@ public class Tournament {
         this.date=date;
     }
 
+    /*
     public static void addGameToTournament(Match match) {
         gamesPlayed.add(match);
-    }
+    }*/
 
     public static void createTournament(Scanner input, ArrayList<Teams> teams){
         System.out.println("Type tournament name");

@@ -1,5 +1,9 @@
 package Tournament;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
 public abstract class FileIOTournament implements DataIOTournament{
 
     int totalRanking;
@@ -64,4 +68,22 @@ public abstract class FileIOTournament implements DataIOTournament{
     public void setTotalRanking(int totalRanking) {
         this.totalRanking = totalRanking;
     }
+
+    /*
+
+    public static void saveGameData(ArrayList<Teams> teams) {
+        String gameData = "";
+        for (Teams p : teams) {
+            gameData += "Team name: " + p.getTeamName() + "," + "Ranking: " + p.getPoints() + "," + "Goals: " + p.getNumberOfGoals() + "\n" ;
+        }
+        try {
+            FileWriter output = new FileWriter("src/tournament/data.txt");
+            output.write(gameData);
+            output.close();
+        }
+        catch (IOException e) {
+        }
+    }
+
+    */
 }

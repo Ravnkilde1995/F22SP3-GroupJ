@@ -1,5 +1,12 @@
 package Tournament;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class FileIOTeams implements DataIOTeams {
     //Fields
     // ******************
@@ -51,6 +58,24 @@ public class FileIOTeams implements DataIOTeams {
 
     public void setPoints(int points) {
         this.points = points;
+    }
+
+    public static void saveGameData(ArrayList<Teams> teams) {
+        String gameData = "";
+        for (Teams p : teams) {
+            gameData += "Team name: " + p.getTeamName() + "," + "Ranking: " + p.getPoints() + "," + "Goals: " + p.getNumberOfGoals() + "\n" ;
+        }
+        try {
+            FileWriter output = new FileWriter("src/tournament/data.txt");
+            output.write(gameData);
+            output.close();
+        }
+        catch (IOException e) {
+        }
+    }
+
+    public static void loadGameData(ArrayList<Teams>teams) {
+
     }
 }
 
