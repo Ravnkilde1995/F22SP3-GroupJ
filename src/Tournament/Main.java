@@ -1,6 +1,8 @@
 package Tournament;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Main {
@@ -8,14 +10,15 @@ public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         ArrayList<Teams> teams = new ArrayList<>();
+        ArrayList<Match> matches = new ArrayList<>();
+        ArrayList<Tournament> tournaments = new ArrayList<>();
 
-        mainMenu(input, teams);
+        mainMenu(input, teams, matches, tournaments);
 
        // Tournament.addGameToTournament();
 
         FileIOTeams.saveGameData(teams);
         FileIOTeams.loadGameData(teams);
-
     }
 
 
@@ -52,7 +55,7 @@ public class Main {
         }
     }
 
-    public static void mainMenu(Scanner input, ArrayList<Teams>teams){
+    public static void mainMenu(Scanner input, ArrayList<Teams> teams, ArrayList<Match> matches, ArrayList<Tournament> tournaments){
 
         int answer=1;
 
@@ -69,10 +72,10 @@ public class Main {
                     teamMenu(input, teams);
                     break;
                 case 2:
-                    tournamentMenu(input,teams);
+                    tournamentMenu(input,teams,tournaments);
                     break;
                 case 3:
-                    System.out.println("Coming soon");
+                    matchMenu(input, matches, teams);
                     break;
                 case 0:
                     System.out.println("Closing...");
@@ -81,7 +84,7 @@ public class Main {
         }
     }
 
-    public static void tournamentMenu(Scanner input, ArrayList<Teams>teams){
+    public static void tournamentMenu(Scanner input, ArrayList<Teams> teams, ArrayList<Tournament> tournaments){
 
         int answer=1;
 
@@ -89,17 +92,17 @@ public class Main {
             System.out.println("Press 1 to create tournament");
             System.out.println("Press 2 to view all teams");
             System.out.println("Press 3 to show the placement of teams");
-            System.out.println("Press 4 to ");
+            System.out.println("Press 4 to add games to tournament ");
             System.out.println("Press 0 to return to main menu");
 
             answer=input.nextInt();
 
             switch(answer){
                 case 1:
-                    Tournament.createTournament(input, teams);
+                    createTournament(input, tournaments);
                     break;
                 case 2:
-                    Tournament.showAllTeams(teams);
+                    FileIOTeams.loadGameData(teams);
                     break;
                 case 3:
                     showPlacement(teams);
@@ -109,6 +112,35 @@ public class Main {
                     break;
                 case 0:
                     System.out.println("returning to main menu...");
+                    break;
+            }
+        }
+    }
+
+    public static void matchMenu(Scanner input, ArrayList<Match>matches, ArrayList<Teams> teams){
+
+        int answer=1;
+
+        while(answer != 0){
+            System.out.println("Press 1 for \"to create a match\"");
+            System.out.println("Press 2 for \"show all upcoming matches\"");
+            System.out.println("Press 3 for \"coming soon\"");
+            System.out.println("Press 0 to terminate the program");
+
+            answer=input.nextInt();
+
+            switch(answer){
+                case 1:
+                    createMatch(input, matches, teams);
+                    break;
+                case 2:
+                    showAllMatches(matches);
+                    break;
+                case 3:
+                    System.out.println("Coming soon");
+                    break;
+                case 0:
+                    System.out.println("Closing...");
                     break;
             }
         }
@@ -124,7 +156,7 @@ public class Main {
         System.out.println("You're new team: "+ole);
     }
 
-    public static void addPointsToTeam(Scanner input, ArrayList<Teams>teams){
+    public static void addPointsToTeam(Scanner input, ArrayList<Teams> teams){
         System.out.println("Input the name of the team you want to add points to: ");
         String team = input.next();
         System.out.println("Assign the total value of points: ");
@@ -134,12 +166,10 @@ public class Main {
                 teams.get(i).setPoints(points);
                 System.out.println("Added points to: "+teams.get(i));
             }
-
         }
-
     }
 
-    public static void addGoalsToTeam(Scanner input, ArrayList<Teams>teams){
+    public static void addGoalsToTeam(Scanner input, ArrayList<Teams> teams){
         System.out.println("Input the name of the team you want to add goals to: ");
         String team = input.next();
         System.out.println("Assign the total value of goals: ");
@@ -152,7 +182,6 @@ public class Main {
                 teams.get(i).setNumberOfGoals(goals);
                 System.out.println("Added goals to: "+teams.get(i));
             }
-
         }
     }
 
@@ -164,17 +193,61 @@ public class Main {
     }
 
     public static void showPlacement(ArrayList<Teams>teams){
-        for(int i=0;i< teams.size();i++){
-            for(int j =1; j< teams.size();j++){
-                if(teams.get(i).getPoints()>teams.get(j).getPoints()
-                        &&teams.get(i).getNumberOfGoals()>teams.get(j).getNumberOfGoals()){
-                    System.out.println(teams.get(i));
-                }
-                if(teams.get(j).getPoints()>teams.get(i).getPoints()
-                        &&teams.get(i).getNumberOfGoals()>teams.get(j).getNumberOfGoals()){
-                    System.out.println(teams.get(j));
-                }
+        Collections.sort(teams);
+
+        for(int i = 0; i < teams.size(); i++) {
+            Teams team = teams.get(i);
+            System.out.println(i + 1 + ": " + team);
+        }
+    }
+
+    //Edit.. parseInt?
+    //***
+    public static void createMatch(Scanner input, ArrayList<Match>matches, ArrayList<Teams> teams){
+        System.out.println("Input first team of match: ");
+        String teamName1 = input.next();
+        Teams teamOne = null;
+        for(Teams t: teams) {
+            if(t.getTeamName().equals(teamName1)) {
+                teamOne=t;
             }
         }
+        System.out.println("Input second team of match: ");
+        String teamName2 = input.next();
+        Teams teamTwo = null;
+        for(Teams t: teams) {
+            if(t.getTeamName().equals(teamName2)) {
+                teamTwo=t;
+            }
+        }
+        System.out.println("Enter month of match start: ");
+        int matchMonth = input.nextInt();
+        System.out.println("Enter date of match start: ");
+        int matchDate = input.nextInt();
+        System.out.println("Enter time of match start: ");
+        int matchTime = input.nextInt();
+        Match newMatch = new Match(teamOne,teamTwo,matchMonth,matchDate,matchTime);
+        matches.add(newMatch);
+        System.out.println(newMatch);
+    }
+
+    public static void showAllMatches(ArrayList<Match> matches){
+        for(int i=0;i< matches.size();i++){
+            System.out.println(matches.get(i));
+
+        }
+    }
+
+    public static void createTournament(Scanner input, ArrayList<Tournament> tournaments) {
+        System.out.println("Type tournament name");
+        String tournamentName = input.next();
+        System.out.println("Type in the date of the tournament");
+        String date = input.next();
+        System.out.println("Type in the start time of the tournament");
+        int startTime = input.nextInt();
+        System.out.println("Type in the end time of the tournament");
+        int endTime = input.nextInt();
+        Tournament tournament1 = new Tournament(tournamentName, startTime, endTime, date);
+        System.out.println(tournamentName + date + " " + startTime + " " + endTime);
     }
 }

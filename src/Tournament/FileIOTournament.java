@@ -8,6 +8,7 @@ public abstract class FileIOTournament implements DataIOTournament{
 
     int totalRanking;
 
+
     public FileIOTournament (int totalRankings) {
         this.totalRanking = totalRankings;
     }

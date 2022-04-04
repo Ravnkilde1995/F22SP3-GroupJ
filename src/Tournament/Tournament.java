@@ -9,15 +9,16 @@ public class Tournament {
     private double startTime;
     private double endTime;
     private String date;
-    ArrayList<Match> gamesPlayed;
+    private String tournamentName;
+    static ArrayList<Match> gamesPlayed;
 
     //Constructor
     //******************
-    public Tournament(double startTime,double endTime, String date){
+    public Tournament(String tournamentName, double startTime,double endTime, String date){
         this.startTime=startTime;
         this.endTime=endTime;
         this.date=date;
-
+        this.tournamentName=tournamentName;
     }
 
     //Methods
@@ -46,21 +47,16 @@ public class Tournament {
         this.date=date;
     }
 
-    /*
+    public String getTournamentName() {
+        return tournamentName;
+    }
+
+    public void setTournamentName(String tournamentName) {
+        this.tournamentName = tournamentName;
+    }
+
     public static void addGameToTournament(Match match) {
         gamesPlayed.add(match);
-    }*/
-
-    public static void createTournament(Scanner input, ArrayList<Teams> teams){
-        System.out.println("Type tournament name");
-        String tournamentName = input.next();
-        System.out.println("Type in the date of the tournament");
-        String date = input.next();
-        System.out.println("Type in the start time of the tournament");
-        int startTime = input.nextInt();
-        System.out.println("Type in the end time of the tournament");
-        int endTime = input.nextInt();
-        System.out.println(date + " " + startTime + " " + endTime);
     }
 
     public static void showAllTeams(ArrayList<Teams> teams){

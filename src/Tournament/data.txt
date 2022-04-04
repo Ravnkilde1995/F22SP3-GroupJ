@@ -1,2 +1,0 @@
-Winners,10,8
-Losers,12,8

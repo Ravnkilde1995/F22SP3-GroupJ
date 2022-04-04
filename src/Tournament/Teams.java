@@ -3,7 +3,7 @@ package Tournament;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Teams {
+public class Teams implements Comparable<Teams> {
     //Fields
     // ******************
     private String teamName;
@@ -73,5 +73,10 @@ public class Teams {
                 ", numberOfGoals=" + numberOfGoals +
                 ", points=" + points +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Teams t) {
+        return t.getPoints()-points;
     }
 }

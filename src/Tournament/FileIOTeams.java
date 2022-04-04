@@ -63,7 +63,7 @@ public class FileIOTeams implements DataIOTeams {
     public static void saveGameData(ArrayList<Teams> teams) {
         String gameData = "";
         for (Teams p : teams) {
-            gameData += "Team name: " + p.getTeamName() + "," + "Ranking: " + p.getPoints() + "," + "Goals: " + p.getNumberOfGoals() + "\n" ;
+            gameData += "Team name: " + p.getTeamName() + ", " + "Ranking: " + p.getPoints() + ", " + "Goals: " + p.getNumberOfGoals() + "\n" ;
         }
         try {
             FileWriter output = new FileWriter("src/tournament/data.txt");
@@ -75,7 +75,16 @@ public class FileIOTeams implements DataIOTeams {
     }
 
     public static void loadGameData(ArrayList<Teams>teams) {
-
+        File text = new File("src/tournament/data.txt");
+        try {
+            Scanner scanner = new Scanner(text);
+            while(scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                System.out.println(line);
+            }
+        }
+        catch (IOException e) {
+        }
     }
 }
 
