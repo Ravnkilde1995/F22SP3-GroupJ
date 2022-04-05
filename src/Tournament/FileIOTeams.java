@@ -7,66 +7,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FileIOTeams implements DataIOTeams {
-    //Fields
-    // ******************
-    private int numberOfGoals;
-    private int points;
+public class FileIOTeams implements FileIO <Teams> {
 
-
-    //Constructor
-    //******************
-    public FileIOTeams(int numberOfGoals, int points) {
-    this.numberOfGoals=numberOfGoals;
-    this.points=points;
-    }
 
 
     //methods
     //******************
     @Override
-    public void saveData() {
-
-    }
-
-    @Override
-    public void loadData() {
-
-    }
-
-    @Override
-    public String getTeamName() {
-        return null;
-    }
-
-    @Override
-    public void setTeamName(String teamName) {
-
-    }
-
-    public int getNumberOfGoals() {
-        return numberOfGoals;
-    }
-
-    public void setNumberOfGoals(int numberOfGoals) {
-        this.numberOfGoals = numberOfGoals;
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-    public static void saveGameData(ArrayList<Teams> teams) {
+    public  void saveData(ArrayList<Teams> teams) {
         String gameData = "";
         for (Teams p : teams) {
-            gameData += "Team name: " + p.getTeamName() + ", " + "Ranking: " + p.getPoints() + ", " + "Goals: " + p.getNumberOfGoals() + "\n" ;
+            gameData += "Teamname: " + p.getTeamName() + " Members: " + p.getTeamMembers() + " Goals: " + p.getNumberOfGoals() + " Points: " + p.getPoints() + "\n" ;
         }
         try {
-            FileWriter output = new FileWriter("src/tournament/data.txt");
+            FileWriter output = new FileWriter("src/tournament/teamData.txt");
             output.write(gameData);
             output.close();
         }
@@ -74,18 +28,34 @@ public class FileIOTeams implements DataIOTeams {
         }
     }
 
-    public static void loadGameData(ArrayList<Teams>teams) {
-        File text = new File("src/tournament/data.txt");
-        try {
+    @Override
+    public  ArrayList<Teams> loadData() {
+        File text = new File("src/tournament/teamData.txt");
+        ArrayList<Teams> teams = new ArrayList<>();
+            try {
             Scanner scanner = new Scanner(text);
             while(scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                System.out.println(line);
+                if (line.length()>0) {
+                    Scanner lineScanner = new Scanner(line);
+                    lineScanner.next();
+                    String teamName = lineScanner.next();
+                    lineScanner.next();
+                    int teamMembers = lineScanner.nextInt();
+                    lineScanner.next();
+                    int numberOfGoals = lineScanner.nextInt();
+                    lineScanner.next();
+                    int points = lineScanner.nextInt();
+                    Teams loadedTeam = new Teams(teamName, teamMembers, numberOfGoals, points);
+                    teams.add(loadedTeam);
+                }
             }
-        }
-        catch (IOException e) {
-        }
+         }
+         catch (IOException e) {
+
+         }
+            return teams;
+      }
     }
-}
 
 

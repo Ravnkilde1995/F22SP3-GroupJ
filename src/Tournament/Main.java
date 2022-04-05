@@ -13,15 +13,20 @@ public class Main {
         ArrayList<Match> matches = new ArrayList<>();
         ArrayList<Tournament> tournaments = new ArrayList<>();
 
+        FileIOTournament tournamentIO = new FileIOTournament();
+
+        FileIOTeams teamsIO = new FileIOTeams();
+        teams=teamsIO.loadData();
+        tournaments=tournamentIO.loadData();
+
+        //FileIOMatch.loadData(teams, tournaments);
         Menu.mainMenu(input, teams, matches, tournaments);
 
-        FileIOTeams.saveGameData(teams);
-        FileIOTeams.loadGameData(teams);
+        teamsIO.saveData(teams);
+        tournamentIO.saveData(tournaments);
 
-        FileIOTournament.saveGameData(teams, tournaments);
-        FileIOTournament.loadGameData(teams, tournaments);
+       // FileIOTournament.saveGameData(teams, tournaments);
+
     }
-
-
 
 }

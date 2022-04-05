@@ -6,15 +6,15 @@ import java.util.Scanner;
 public class Tournament {
     //Fields
     // ******************
-    private double startTime;
-    private double endTime;
+    private  int startTime;
+    private int endTime;
     private String date;
     private String tournamentName;
     static ArrayList<Match> gamesPlayed;
 
     //Constructor
     //******************
-    public Tournament(String tournamentName, double startTime,double endTime, String date){
+    public Tournament( int startTime,int endTime, String date, String tournamentName){
         this.startTime=startTime;
         this.endTime=endTime;
         this.date=date;
@@ -23,19 +23,19 @@ public class Tournament {
 
     //Methods
     //******************
-    public double getStartTime(){
+    public int getStartTime(){
         return startTime;
     }
 
-    public void setStartTime(double startTime){
+    public void setStartTime(int startTime){
         this.startTime=startTime;
     }
 
-    public double getEndTime(){
+    public int getEndTime(){
         return endTime;
     }
 
-    public void setEndTime(double endTime){
+    public void setEndTime(int endTime){
         this.endTime=endTime;
     }
 
