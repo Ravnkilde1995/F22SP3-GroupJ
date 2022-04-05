@@ -10,4 +10,6 @@ public interface DataIOTournament {
     void setEndTime();
     void getDate();
     void setDate();
+    void getTeamName();
+    void setTeamName(String teamName);
 }

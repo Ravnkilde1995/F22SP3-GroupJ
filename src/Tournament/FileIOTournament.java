@@ -1,8 +1,10 @@
 package Tournament;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public abstract class FileIOTournament implements DataIOTournament{
 
@@ -70,12 +72,16 @@ public abstract class FileIOTournament implements DataIOTournament{
         this.totalRanking = totalRanking;
     }
 
-    /*
 
-    public static void saveGameData(ArrayList<Teams> teams) {
+
+
+    public static void saveGameData(ArrayList<Teams> teams, ArrayList<Tournament> tournaments) {
         String gameData = "";
-        for (Teams p : teams) {
-            gameData += "Team name: " + p.getTeamName() + "," + "Ranking: " + p.getPoints() + "," + "Goals: " + p.getNumberOfGoals() + "\n" ;
+        for (Teams t : teams) {
+            gameData += "Team name: " + t.getTeamName() + "," + "Ranking: " + t.getPoints() + "," + "Goals: " + t.getNumberOfGoals() + "\n" ;
+        }
+        for (Tournament a : tournaments) {
+            gameData += "Tournament start time: " + a.getStartTime() + "Tournament end time: " + a.getEndTime() + "Tournament date: " + a.getDate() + "Tournament name: " + a.getTournamentName();
         }
         try {
             FileWriter output = new FileWriter("src/tournament/data.txt");
@@ -86,5 +92,16 @@ public abstract class FileIOTournament implements DataIOTournament{
         }
     }
 
-    */
+    public static void loadGameData(ArrayList<Teams> teams, ArrayList<Tournament> tournaments) {
+        File text = new File("src/tournament/data.txt");
+        try {
+            Scanner scanner = new Scanner(text);
+            while(scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                System.out.println(line);
+            }
+        }
+        catch (IOException e) {
+        }
+    }
 }
