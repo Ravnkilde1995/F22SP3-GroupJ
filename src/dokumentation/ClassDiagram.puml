@@ -17,11 +17,11 @@ Class Main {
 + loadData(load)
 + teams=teamsIO.loadData();
 + tournaments=tournamentIO.loadData();
-+ FileIOMatch.loadData(teams, tournaments);
++ matches=matchIO.loadData()
 + Menu.mainMenu(input, teams, matches, tournaments);
 + teamsIO.saveData(teams);
 + tournamentIO.saveData(tournaments);
-+ FileIOTournament.saveGameData(teams, tournaments);
++ matchIO.saveData(matches)
 
 }
 
@@ -38,8 +38,10 @@ Class Menu {
 + void createMatch()
 + void showAllMatches()
 + void createTournament()
-+ void addGameToTournament()
++ void addTeamToTournament()
++ void removeTeamFromTournament()
 + void showTournaments()
++ void showTeamsAddedToTournament()
 
 }
 
@@ -53,6 +55,7 @@ Class Tournament {
 + int getEndTime()
 + String getDate()
 + String getTournamentName()
++ String toString()
 
 }
 
@@ -68,6 +71,7 @@ Class Teams {
 + void setPoints(int points)
 + int getTeamMembers()
 + toString()
++ int compareTo(Teams t)
 }
 
 
