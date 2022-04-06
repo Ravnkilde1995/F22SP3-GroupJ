@@ -1,43 +1,59 @@
 @startuml
 
-Main --> "has a "Tournament
-Tournament --> "has a "TextUI
-Match --> "has a " Teams
-Tournament --> "has a " Match
-TextUI "has a "--> Main
-Tournament --> "has a" DataIOTournament
-Teams "has a"-->  DataIOTeams
-DataIOTeams "has a" --> FileIOTeams
-DataIOTournament "has a"-->FileIOTournament
-
+Main --> "has a " Menu
+Menu --> "has a " Tournament
+Menu --> "has a " Teams
+Menu --> "has a " Match
+Main --> "has a " FileIO
+FileIO --> "has a"FileIOTournament
+FileIO --> "has a" FileIOMatch
+FileIO --> "has a"FileIOTeams
 
 Class Main {
 - Scanner input
-- int answer
--ArrayList<Teams>teams
-+ createTeams()
-+ mainMenu()
-+addPointsToTeams()
-+addGoalsToTeams()
-+addNegativeGoals()
-+teamMenu()
+- ArrayList<Teams> teams
+- ArrayList<Match> matches
+- ArrayList<Tournament> tournaments
+- FileIOTournament tournamentIO
++ loadData(load)
++ teams=teamsIO.loadData();
++ tournaments=tournamentIO.loadData();
++ FileIOMatch.loadData(teams, tournaments);
++ Menu.mainMenu(input, teams, matches, tournaments);
++teamsIO.saveData(teams);
++tournamentIO.saveData(tournaments);
++ FileIOTournament.saveGameData(teams, tournaments);
+
+}
+
+Class Menu {
++ void mainMenu()
++ void teamMenu()
++ void tournamentMenu()
++ void matchMenu()
++ void createTeam()
++ void addPointsToTeam()
++ void addGoalsToTeam()
++ void showAllTeams()
++ void showPlacement()
++ void createMatch()
++ void showAllMatches()
++ void createTournament()
++ void addGameToTournament()
++ void showTournaments()
 
 }
 
 Class Tournament {
-- double startTime
-- double endTime
+- int startTime
+- int endTime
 - String date
-+ ArrayList<Games>
-+ getStartTime()
-+ void setStartTime(double startTime)
-+ getEndTime()
-+ void setEndTime(double endTime)
-+ getDate()
-+ void setDate(String date)
-+ addGametoTournament()
-+ createTournament()
-+ showAllTeams()
+- String tournamentName
++ ArrayList<Match> gamesPlayed
++ int getStartTime()
++ int getEndTime()
++ String getDate()
++ String getTournamentName()
 
 }
 
@@ -47,61 +63,47 @@ Class Teams {
 - int numberOfGoals
 - int points
 + String getTeamName()
-+ void setTeamName(String teamName)
-+ int getMembers()
-+ void setMembers(int teamMembers)
++ int getNumberOfGoals()
++ void setNumberOfGoals(int numberOfGoals)
++ int getPoints()
++ void setPoints(int points)
++ int getTeamMembers()
++ toString()
 }
 
-Class TextUI {
-- scanner console
-}
 
 Class Match {
-- String matchTitle
-- matchStart
-- matchEnd
-+ getMatchStart()
-+ void setMatchStart(double matchStart)
-+getMatchEnd()
-+ void setMatchEnd(double matchEnd)
-+ String getMatchTitle()
-+ String setMatchTitle(String matchTitle)
-}
-interface DataIOTeams{
-+ saveData()
-+ loadData()
-+ String getTeamName()
-+ void setTeamName(String teamName)
-}
-abstract FileIOTeams{
-- int numberOfGoals
-- int points
-+ saveData()
-+ loadData()
-+ totalNumbersOfGoals()
-+totalPoints()
+- Teams teamOne
+- Teams teamTwo
+- int matchDate
+- int matchTime
+- int matchMonth
++ Teams getTeamOne()
++ Teams getTeamTwo()
++ int getMatchDate()
++ int getMatchTime()
++ int getMatchMonth()
++ String toString()
 }
 
-interface DataIOTournament{
-+ saveData()
-+ loadData()
-+ showAllTeams()
-+ getStartTime()
-+ void setStartTime(double startTime)
-+ getEndTime()
-+ void setEndTime(double endTime)
-+ getDate()
-+ void setDate(String date)
-
-}
-abstract FileIOTournament{
-- int totalRankings
-+saveData()
-+ loadData()
-+totalRankings()
-+getTotalRankings()
-+void setTotalRankings(int totalRankings)
+interface FileIO{
++ void saveData(ArrayList<T> arrayList)
++ ArrayList<T> loadData()
 }
 
+Class FileIOTeams{
++ void saveData(ArrayList<Teams> teams)
++ ArrayList<Teams>teams loadData()
+}
+
+Class FileIOTournament{
++ void saveData(ArrayList<Tournament> tournaments)
++ ArrayList<Tournament>tournaments loadData()
+}
+
+Class FileIOMatch{
++ void saveData(ArrayList<Match> matches)
++ ArrayList<Match> matches loadData()
+}
 
 @enduml

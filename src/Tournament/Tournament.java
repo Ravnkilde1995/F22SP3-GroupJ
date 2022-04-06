@@ -27,42 +27,16 @@ public class Tournament {
         return startTime;
     }
 
-    public void setStartTime(int startTime){
-        this.startTime=startTime;
-    }
-
     public int getEndTime(){
         return endTime;
-    }
-
-    public void setEndTime(int endTime){
-        this.endTime=endTime;
     }
 
     public String getDate(){
         return date;
     }
 
-    public void setDate(String date){
-        this.date=date;
-    }
-
     public String getTournamentName() {
         return tournamentName;
     }
 
-    public void setTournamentName(String tournamentName) {
-        this.tournamentName = tournamentName;
-    }
-
-    public static void addGameToTournament(Match match) {
-        gamesPlayed.add(match);
-    }
-
-    public static void showAllTeams(ArrayList<Teams> teams){
-        System.out.println("All teams in the tournament:");
-        for (Teams t : teams) {
-            System.out.println(t);
-        }
-    }
 }

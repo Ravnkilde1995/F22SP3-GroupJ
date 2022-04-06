@@ -31,40 +31,21 @@ public class Match {
         return teamTwo;
     }
 
-    public void setTeamTwo(Teams teamTwo) {
-        this.teamTwo = teamTwo;
-    }
-
     public Teams getTeamOne() {
         return teamOne;
-    }
-
-    public void setTeamOne(Teams teamOne) {
-        this.teamOne = teamOne;
     }
 
     public int getMatchDate() {
         return matchDate;
     }
 
-    public void setMatchDate(int matchDate) {
-        this.matchDate = matchDate;
-    }
-
     public int getMatchTime() {
         return matchTime;
     }
 
-    public void setMatchTime(int matchTime) {
-        this.matchTime = matchTime;
-    }
 
     public int getMatchMonth() {
         return matchMonth;
-    }
-
-    public void setMatchMonth(int matchMonth) {
-        this.matchMonth = matchMonth;
     }
 
     @Override

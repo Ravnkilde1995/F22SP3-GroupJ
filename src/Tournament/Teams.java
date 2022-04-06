@@ -9,7 +9,6 @@ public class Teams implements Comparable<Teams> {
     private String teamName;
     private int teamMembers;
     private int numberOfGoals;
-
     private int points;
 
 
@@ -34,10 +33,6 @@ public class Teams implements Comparable<Teams> {
         return teamName;
     }
 
-    public void setTeamName(String teamName){
-        this.teamName=teamName;
-    }
-
     public int getNumberOfGoals() {
         return numberOfGoals;
     }
@@ -58,11 +53,9 @@ public class Teams implements Comparable<Teams> {
         return teamMembers;
     }
 
-    public void setTeamMembers(int teamMembers){
-        this.teamMembers=teamMembers;
 
 
-    }
+
 
     @Override
     public String toString() {
