@@ -1,17 +1,53 @@
 package Tournament;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
 public class Menu {
+    //Fields
+    //**********
+   static ArrayList<Teams> teamsInTournament = new ArrayList<Teams>();
 
+   public static void mainMenu(Scanner input, ArrayList<Teams> teams, ArrayList<Match> matches, ArrayList<Tournament> tournaments) {
+
+        int answer = 1;
+
+        while (answer != 0) {
+            System.out.println("GruppeJ´s fodboldtunering");
+            System.out.println("****************************");
+            System.out.println("Press 1 for \"Team menu\"");
+            System.out.println("Press 2 for \"Tournament menu\"");
+            System.out.println("Press 3 for \"Match menu\"");
+            System.out.println("Press 0 to terminate the program");
+
+            answer = input.nextInt();
+
+            switch (answer) {
+                case 1:
+                    teamMenu(input, teams);
+                    break;
+                case 2:
+                    tournamentMenu(input, teams, tournaments);
+                    break;
+                case 3:
+                    matchMenu(input, matches, teams);
+                    break;
+                case 0:
+                    System.out.println("Returning to main menu...");
+                    break;
+            }
+        }
+    }
 
     public static void teamMenu(Scanner input, ArrayList<Teams> teams) {
 
         int answer = 1;
 
         while (answer != 0) {
+            System.out.println("Team menu");
+            System.out.println("****************************");
             System.out.println("Press 1 to create a team");
             System.out.println("Press 2 to assign points to team");
             System.out.println("Press 3 to assign goals and negative goals to team");
@@ -40,44 +76,19 @@ public class Menu {
         }
     }
 
-    public static void mainMenu(Scanner input, ArrayList<Teams> teams, ArrayList<Match> matches, ArrayList<Tournament> tournaments) {
-
-        int answer = 1;
-
-        while (answer != 0) {
-            System.out.println("Press 1 for \"Team menu\"");
-            System.out.println("Press 2 for \"Tournament menu\"");
-            System.out.println("Press 3 for \"Match menu\"");
-            System.out.println("Press 0 to terminate the program");
-
-            answer = input.nextInt();
-
-            switch (answer) {
-                case 1:
-                    teamMenu(input, teams);
-                    break;
-                case 2:
-                    tournamentMenu(input, teams, tournaments);
-                    break;
-                case 3:
-                    matchMenu(input, matches, teams);
-                    break;
-                case 0:
-                    System.out.println("Closing...");
-                    break;
-            }
-        }
-    }
-
     public static void tournamentMenu(Scanner input, ArrayList<Teams> teams, ArrayList<Tournament> tournaments) {
 
         int answer = 1;
 
         while (answer != 0) {
+            System.out.println("Tournament menu");
+            System.out.println("****************************");
             System.out.println("Press 1 to create tournament");
             System.out.println("Press 2 to show the placement of teams");
-            System.out.println("Press 3 to add games to tournament ");
+            System.out.println("Press 3 to add team to tournament");
             System.out.println("Press 4 to show all tournaments");
+            System.out.println("Press 5 to remove a team from tournament");
+            System.out.println("Press 6 to show all teams in tournament");
             System.out.println("Press 0 to return to main menu");
 
             answer = input.nextInt();
@@ -90,10 +101,16 @@ public class Menu {
                     showPlacement(teams);
                     break;
                 case 3:
-                    addGameToTournament();
+                    addTeamToTournament(input, teams);
                     break;
                 case 4:
                     showTournaments(tournaments);
+                    break;
+                case 5:
+                    removeTeamFromTournament(input);
+                    break;
+                case 6:
+                    showTeamsAddedToTournament();
                     break;
                 case 0:
                     System.out.println("returning to main menu...");
@@ -107,6 +124,8 @@ public class Menu {
         int answer = 1;
 
         while (answer != 0) {
+            System.out.println("Match menu");
+            System.out.println("****************************");
             System.out.println("Press 1 for to create a match");
             System.out.println("Press 2 for show all upcoming matches");
             System.out.println("Press 0 to terminate the program");
@@ -121,7 +140,7 @@ public class Menu {
                     showAllMatches(matches);
                     break;
                 case 0:
-                    System.out.println("Closing...");
+                    System.out.println("Returning to main menu...");
                     break;
             }
         }
@@ -183,26 +202,23 @@ public class Menu {
     }
 
     public static void createMatch(Scanner input, ArrayList<Match> matches, ArrayList<Teams> teams) {
-        System.out.println("Input first team of match: ");
-        String teamName1 = input.next();
-        Teams teamOne = null;
-        for (Teams t : teams) {
-            if (t.getTeamName().equals(teamName1)) {
-                teamOne = t;
-            }
+        System.out.println("Type the number of the first team: ");
+        for (int i = 0; i < teams.size(); i++) {
+            System.out.println(i + 1 + ": " + teams.get(i));
         }
-        System.out.println("Input second team of match: ");
-        String teamName2 = input.next();
-        Teams teamTwo = null;
-        for (Teams t : teams) {
-            if (t.getTeamName().equals(teamName2)) {
-                teamTwo = t;
-            }
+        int teamNumber = input.nextInt();
+        Teams teamOne = teams.get(teamNumber - 1);
+
+        System.out.println("Type the number of the second team: ");
+        for (int i = 0; i < teams.size(); i++) {
+            System.out.println(i + 1 + ": " + teams.get(i));
         }
-        System.out.println("Enter month of match start: ");
-        int matchMonth = input.nextInt();
+        teamNumber = input.nextInt();
+        Teams teamTwo = teams.get(teamNumber - 1);
         System.out.println("Enter date of match start: ");
         int matchDate = input.nextInt();
+        System.out.println("Enter month of match start: ");
+        int matchMonth = input.nextInt();
         System.out.println("Enter time of match start: ");
         int matchTime = input.nextInt();
         Match newMatch = new Match(teamOne, teamTwo, matchMonth, matchDate, matchTime);
@@ -213,7 +229,6 @@ public class Menu {
     public static void showAllMatches(ArrayList<Match> matches) {
         for (int i = 0; i < matches.size(); i++) {
             System.out.println(matches.get(i));
-
         }
     }
 
@@ -230,13 +245,41 @@ public class Menu {
         tournaments.add(tournament1);
     }
 
-    public static void addGameToTournament(){
+    public static void addTeamToTournament(Scanner input, ArrayList<Teams> teams){
+        if(teams.size()< 8){
+            System.out.println("You need to have 8 teams.");
+            return;
+        }
+        while(teamsInTournament.size()< 8) {
+            System.out.println("Type the number of the team you want to add to the tournament: ");
+            for (int i = 0; i < teams.size(); i++) {
+                System.out.println(i + 1 + ": " + teams.get(i));
+            }
+            int teamNumber = input.nextInt();
+            Teams selectedTeam = teams.get(teamNumber - 1);
+            teamsInTournament.add(selectedTeam);
+        }
+    }
 
+    public static void removeTeamFromTournament(Scanner input){
+        System.out.println("Type the number of the team you want to remove from the tournament: ");
+        for(int i = 0; i< teamsInTournament.size();i++){
+            System.out.println(i+1+": "+teamsInTournament.get(i));
+        }
+        int teamNumber = input.nextInt();
+        teamsInTournament.remove(teamNumber-1);
     }
 
     public static void showTournaments(ArrayList<Tournament> tournaments) {
         for (int i = 0; i < tournaments.size(); i++) {
             System.out.println(tournaments.get(i));
         }
+    }
+
+    public static void showTeamsAddedToTournament(){
+        for(Teams team : teamsInTournament){
+            System.out.println(team);
+        }
+
     }
 }

@@ -39,4 +39,13 @@ public class Tournament {
         return tournamentName;
     }
 
+    @Override
+    public String toString() {
+        return "Tournament{" +
+                "startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", date='" + date + '\'' +
+                ", tournamentName='" + tournamentName + '\'' +
+                '}';
+    }
 }

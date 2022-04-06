@@ -7,11 +7,26 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileIOMatch implements FileIO<Match>{
+    //Fields
+    //*********
+
+    ArrayList<Teams> teams;
+
+    //Constructor
+    //*********
+
+
+    public FileIOMatch(ArrayList<Teams> teams) {
+        this.teams = teams;
+    }
+
     @Override
     public void saveData(ArrayList<Match> matches) {
         String gameData = "";
         for (Match a : matches) {
-            gameData += "Teamone: " + a.getTeamOne() + " teamtwo " + a.getTeamTwo() + " MatchMonth " + a.getMatchMonth() + " MatchDate " + a.getMatchDate() + " MatchTime: " + a.getMatchTime() +"\n";
+            gameData += "Teamone: " + a.getTeamOne().getTeamName() + " Teamtwo: " + a.getTeamTwo().getTeamName() +
+                    " MatchMonth: " + a.getMatchMonth() + " MatchDate: " + a.getMatchDate() + " MatchTime: " +
+                    a.getMatchTime() +"\n";
         }
         try {
             FileWriter output = new FileWriter("src/Tournament/MatchData.txt");
@@ -34,17 +49,28 @@ public class FileIOMatch implements FileIO<Match>{
                 if (line.length()>0) {
                     Scanner lineScanner = new Scanner(line);
                     lineScanner.next();
+                    String teamNameOne = lineScanner.next();
                     Teams teamOne = null;
-                    teamOne = lineScanner.next();
+                    for(Teams team : teams){
+                        if(team.getTeamName().equalsIgnoreCase(teamNameOne)){
+                            teamOne = team;
+                        }
+                    }
                     lineScanner.next();
-                    Teams teamTwo = lineScanner.next();
+                    String teamNameTwo = lineScanner.next();
+                    Teams teamTwo = null;
+                    for(Teams team : teams){
+                        if(team.getTeamName().equalsIgnoreCase(teamNameTwo)){
+                            teamTwo = team;
+                        }
+                    }
                     lineScanner.next();
                     int matchMonth = lineScanner.nextInt();
                     lineScanner.next();
                     int matchDate = lineScanner.nextInt();
                     lineScanner.next();
                     int matchTime = lineScanner.nextInt();
-                    Match loadedMatch = new Match(teamOne,teamTwo,  matchMonth,  matchDate, matchTime);
+                    Match loadedMatch = new Match(teamOne, teamTwo,  matchMonth,  matchDate, matchTime);
                     matches.add(loadedMatch);
                 }
             }

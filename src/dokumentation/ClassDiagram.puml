@@ -14,14 +14,13 @@ Class Main {
 - ArrayList<Teams> teams
 - ArrayList<Match> matches
 - ArrayList<Tournament> tournaments
-- FileIOTournament tournamentIO
 + loadData(load)
 + teams=teamsIO.loadData();
 + tournaments=tournamentIO.loadData();
 + FileIOMatch.loadData(teams, tournaments);
 + Menu.mainMenu(input, teams, matches, tournaments);
-+teamsIO.saveData(teams);
-+tournamentIO.saveData(tournaments);
++ teamsIO.saveData(teams);
++ tournamentIO.saveData(tournaments);
 + FileIOTournament.saveGameData(teams, tournaments);
 
 }
